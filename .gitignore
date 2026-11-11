@@ -1,0 +1,7 @@
+bin/
+obj/
+.vs/
+*.user
+adatok/
+kiadas/
+teszt.png
