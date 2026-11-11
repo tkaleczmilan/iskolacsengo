@@ -1,6 +1,8 @@
 # 🔔 Iskolacsengő
 
 Ingyenes, magyar nyelvű iskolai csengetőprogram Windowsra, beépített **iskolarádióval**.
+
+**[⬇ Letöltés (Windows, 47 MB)](https://github.com/tkaleczmilan/iskolacsengo/raw/main/letoltes/IskolaCsengo-2.0-win-x64.zip)**
 Egy gépen fut a háttérben, és pontosan csenget a beállított csengetési rend szerint.
 
 ![Áttekintés](docs/attekintes.png)
@@ -35,7 +37,7 @@ Egy gépen fut a háttérben, és pontosan csenget a beállított csengetési re
 
 ## Telepítés
 
-1. Töltsd le a legfrissebb `IskolaCsengo-…-win-x64.zip` fájlt a **Releases** részből.
+1. **[⬇ Letöltés: IskolaCsengo-2.0-win-x64.zip](https://github.com/tkaleczmilan/iskolacsengo/raw/main/letoltes/IskolaCsengo-2.0-win-x64.zip)** (kb. 47 MB)
 2. Csomagold ki egy olyan mappába, ahol maradhat (pl. `C:\IskolaCsengo` vagy az Asztalra).
 3. Indítsd el az `IskolaCsengo.exe` fájlt.
 
