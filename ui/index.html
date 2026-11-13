@@ -17,7 +17,7 @@
       </div>
       <div>
         <div class="brand-name">Iskolacsengő</div>
-        <div class="brand-sub">2.0</div>
+        <div class="brand-sub">2.1</div>
       </div>
     </div>
 
@@ -257,6 +257,11 @@
           <div><b>Automatikus szünetrádió</b><div class="muted small">Minden szünetben (kicsengő után) magától elindul, becsengőkor leáll.</div></div>
           <label class="switch"><input type="checkbox" id="autoBreak"><span class="track"><span class="thumb"></span></span></label>
         </div>
+        <div class="field breaks-field">
+          <div><b>Melyik szünetekben szóljon?</b><div class="muted small" id="breaksHint"></div></div>
+          <div class="row gap"><button class="btn small" id="breaksAll">Mind</button><button class="btn small" id="breaksNone">Egyik sem</button></div>
+        </div>
+        <div class="break-chips" id="breakChips"></div>
         <div class="field">
           <div><b>Mit játsszon a szünetben?</b></div>
           <select id="autoSource"></select>

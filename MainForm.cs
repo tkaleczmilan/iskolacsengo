@@ -253,6 +253,8 @@ public sealed class MainForm : Form
     {
         if (!settings.Radio.AutoBreak) return;
         var breakKey = CurrentBreakKey(now);
+        // a kiválasztott szünetekben nem szól (a kulcs vége a kicsengő időpontja)
+        if (breakKey != null && ActiveProfile().RadioSkipBreaks.Contains(breakKey[^5..])) breakKey = null;
 
         if (breakKey != null)
         {

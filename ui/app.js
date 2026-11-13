@@ -60,6 +60,7 @@ function showPage(name) {
   $$('.nav-item').forEach(b => b.classList.toggle('active', b.dataset.page === name));
   $$('.page').forEach(p => p.classList.toggle('active', p.id === 'page-' + name));
   try { localStorage.setItem('page', name); } catch { }
+  if (name === 'radio' && S) renderBreaks();
 }
 $$('.nav-item').forEach(b => b.addEventListener('click', () => showPage(b.dataset.page)));
 try { const p = localStorage.getItem('page'); if (p && $('#page-' + p)) showPage(p); } catch { }
@@ -414,6 +415,7 @@ function renderRadioSettings() {
   const r = S.radio;
   const vol = $('#radioVolume'); vol.value = r.volume; setRangeFill(vol);
   $('#autoBreak').checked = r.autoBreak;
+  renderBreaks();
   const fs = $('#fadeSeconds'); fs.value = r.fadeSeconds; setRangeFill(fs);
   $('#fadeSecondsOut').textContent = r.fadeSeconds ? String(r.fadeSeconds).replace('.', ',') + ' mp' : 'azonnal';
   renderScheduled();
@@ -495,6 +497,41 @@ $('#fadeSeconds').addEventListener('input', e => {
   save();
 });
 
+/* ═════════════ Szünetrádió: melyik szünetekben ═════════════ */
+function breaksOf(p) {
+  const list = p.bells.filter(b => b.type !== 'egyeb');
+  const out = [];
+  for (let i = 0; i < list.length - 1; i++)
+    if (list[i].type === 'ki' && list[i + 1].type === 'be')
+      out.push({ from: list[i].time, to: list[i + 1].time, len: toMin(list[i + 1].time) - toMin(list[i].time), after: list.slice(0, i + 1).filter(b => b.type === 'be').length });
+  return out;
+}
+
+function renderBreaks() {
+  if (!S) return;
+  const p = activeProfile();
+  p.radioSkipBreaks = p.radioSkipBreaks || [];
+  const br = breaksOf(p);
+  const on = br.filter(b => !p.radioSkipBreaks.includes(b.from)).length;
+  $('#breaksHint').textContent = `${on} / ${br.length} szünetben szól · aktív rend: ${p.name}`;
+  $('#breakChips').innerHTML = br.length ? br.map(b => `
+    <button class="break-chip ${p.radioSkipBreaks.includes(b.from) ? '' : 'on'}" data-break="${b.from}" title="Kattints a be/ki kapcsoláshoz">
+      <b>${b.from}–${b.to}</b><span>${b.after}. óra után · ${b.len} perc</span>
+    </button>`).join('') : '<span class="break-empty">Az aktív csengetési rendben nincs szünet (kicsengő, majd becsengő).</span>';
+  const dis = !S.radio.autoBreak;
+  $('#breakChips').classList.toggle('disabled', dis);
+  $('.breaks-field').classList.toggle('disabled', dis);
+}
+
+$('#breakChips').addEventListener('click', e => {
+  const c = e.target.closest('[data-break]'); if (!c) return;
+  const p = activeProfile(), t = c.dataset.break;
+  p.radioSkipBreaks = p.radioSkipBreaks.includes(t) ? p.radioSkipBreaks.filter(x => x !== t) : [...p.radioSkipBreaks, t];
+  save(); renderBreaks();
+});
+$('#breaksAll').addEventListener('click', () => { activeProfile().radioSkipBreaks = []; save(); renderBreaks(); });
+$('#breaksNone').addEventListener('click', () => { activeProfile().radioSkipBreaks = breaksOf(activeProfile()).map(b => b.from); save(); renderBreaks(); });
+
 function renderPlayer() {
   const r = st.radio;
   const active = r.playing || r.paused || r.loading;
@@ -547,7 +584,7 @@ seekEl.addEventListener('input', e => { setRangeFill(e.target); $('#posNow').tex
 seekEl.addEventListener('change', e => { send('radioSeek', { value: +e.target.value }); seeking = false; });
 
 $('#autoBreak').addEventListener('change', e => {
-  S.radio.autoBreak = e.target.checked; saveNow();
+  S.radio.autoBreak = e.target.checked; saveNow(); renderBreaks();
   toast(e.target.checked ? 'Szünetrádió bekapcsolva' : 'Szünetrádió kikapcsolva');
 });
 $('#autoSource').addEventListener('change', e => { S.radio.autoSource = e.target.value; save(); });
@@ -616,7 +653,7 @@ function demoStart() {
     scheduledSounds: [{ id: 's1', time: '07:45', name: 'Reggeli zene', file: 'reggel.mp3', days: [1, 2, 3, 4, 5], enabled: true },
       { id: 's2', time: '08:00', name: 'Himnusz', file: 'himnusz.mp3', days: [1], enabled: false }],
     extraSounds: [{ id: 'a', name: 'Himnusz', file: 'himnusz.mp3' }, { id: 'b', name: 'Tűzriadó', file: 'riado.mp3' }],
-    profiles: [{ id: 'normal', name: 'Normál csengetési rend', bells }, { id: 'r', name: 'Rövidített órák', bells: bells.slice(0, 8) }],
+    profiles: [{ id: 'normal', name: 'Normál csengetési rend', bells, radioSkipBreaks: ['10:45', '12:35'] }, { id: 'r', name: 'Rövidített órák', bells: bells.slice(0, 8) }],
     activeProfileId: 'normal', activeDays: [1, 2, 3, 4, 5], startWithWindows: true,
     radio: { tracks: ['D:\\Zene\\Iskolarádió\\Reggeli dal.mp3', 'D:\\Zene\\Iskolarádió\\Szünet mix.mp3', 'D:\\Zene\\Iskolarádió\\Péntek.mp3'],
       streams: [{ name: 'Iskolai adás', url: 'http://example.com/stream.mp3' }], volume: 70, shuffle: false, autoBreak: true, autoSource: 'playlist', fadeSeconds: 2 },

@@ -17,6 +17,8 @@ public class Profile
     public string Id { get; set; } = Guid.NewGuid().ToString("N")[..8];
     public string Name { get; set; } = "Új csengetési rend";
     public List<Bell> Bells { get; set; } = new();
+    /// <summary>Azoknak a szüneteknek a kezdete (kicsengő időpontja), amikor a szünetrádió NE szóljon.</summary>
+    public List<string> RadioSkipBreaks { get; set; } = new();
 }
 
 public class ExtraSound

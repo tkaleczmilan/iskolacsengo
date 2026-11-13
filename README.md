@@ -2,7 +2,7 @@
 
 Ingyenes, magyar nyelvű iskolai csengetőprogram Windowsra, beépített **iskolarádióval**.
 
-**[⬇ Letöltés (Windows, 47 MB)](https://github.com/tkaleczmilan/iskolacsengo/raw/main/letoltes/IskolaCsengo-2.0-win-x64.zip)**
+**[⬇ Letöltés – 2.1-es verzió (Windows, 47 MB)](https://github.com/tkaleczmilan/iskolacsengo/raw/main/letoltes/IskolaCsengo-win-x64.zip)**
 Egy gépen fut a háttérben, és pontosan csenget a beállított csengetési rend szerint.
 
 ![Áttekintés](docs/attekintes.png)
@@ -21,7 +21,7 @@ Egy gépen fut a háttérben, és pontosan csenget a beállított csengetési re
 **Iskolarádió**
 - Lejátszási lista a saját zenéidből (fájlok vagy egész mappa), keveréssel.
 - Online rádióadások (stream cím alapján), automatikus újracsatlakozással.
-- **Automatikus szünetrádió:** kicsengő után magától elindul, becsengőkor leáll.
+- **Automatikus szünetrádió:** kicsengő után magától elindul, becsengőkor leáll. Kiválaszthatod, **melyik szünetekben** szóljon.
 - Csengetéskor a rádió fokozatosan elhalkul, utána visszahangosodik.
 - **Ütemezett hangok:** adott időpontban, adott napokon lejátszik egy fájlt (pl. reggeli zene 7:45-kor, Himnusz hétfőnként).
 
@@ -37,13 +37,32 @@ Egy gépen fut a háttérben, és pontosan csenget a beállított csengetési re
 
 ## Telepítés
 
-1. **[⬇ Letöltés: IskolaCsengo-2.0-win-x64.zip](https://github.com/tkaleczmilan/iskolacsengo/raw/main/letoltes/IskolaCsengo-2.0-win-x64.zip)** (kb. 47 MB)
+1. **[⬇ Letöltés: IskolaCsengo-win-x64.zip](https://github.com/tkaleczmilan/iskolacsengo/raw/main/letoltes/IskolaCsengo-win-x64.zip)** (kb. 47 MB)
 2. Csomagold ki egy olyan mappába, ahol maradhat (pl. `C:\IskolaCsengo` vagy az Asztalra).
 3. Indítsd el az `IskolaCsengo.exe` fájlt.
 
 Semmit nem kell külön telepíteni, mert a .NET benne van a csomagban. A felülethez a **Microsoft Edge WebView2 Runtime** kell, ez Windows 10 és 11 alatt szinte mindig fent van. Ha mégsem, [innen letölthető](https://developer.microsoft.com/microsoft-edge/webview2/).
 
 > **„A Windows megvédte a számítógépet” figyelmeztetés:** a program nincs digitálisan aláírva (ez évi több száz euróba kerülne), ezért a Windows az első indításkor figyelmeztet. Kattints a **További információ**, majd a **Futtatás mindenképp** gombra.
+
+## Frissítés régebbi verzióról
+
+A beállításaid, saját hangjaid és a csengetési rend **megmaradnak**, csak az új funkciók kerülnek be.
+
+1. **Lépj ki a programból:** tálca ikon (csengő az óra mellett), jobb gomb, **Kilépés**.
+2. Töltsd le az új zipet, és csomagold ki **ugyanabba a mappába**, ahol eddig volt. Ha a Windows kérdezi, válaszd a **fájlok cseréjét**.
+3. Indítsd el újra az `IskolaCsengo.exe` fájlt.
+
+> Ha véletlenül új mappába csomagoltad ki, a program alapbeállításokkal indul. Ilyenkor lépj ki, és másold át a régi helyről az **`adatok`** mappát az új mellé. Ebben van minden beállításod.
+
+### Változások
+
+**2.1**
+- Szünetrádió: kiválasztható, melyik szünetekben szóljon (csengetési rendenként külön).
+- Frissítési útmutató.
+
+**2.0**
+- Új felület, iskolarádió, ütemezett hangok, több csengetési rend, egyéb jelzések.
 
 ## Első lépések
 

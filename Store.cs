@@ -89,6 +89,7 @@ public static class Store
         foreach (var p in s.Profiles)
         {
             p.Bells ??= new();
+            p.RadioSkipBreaks ??= new();
             p.Bells = p.Bells.Where(b => TimeOnly.TryParse(b.Time, out _))
                              .Select(b => { b.Time = TimeOnly.Parse(b.Time).ToString("HH:mm"); return b; })
                              .OrderBy(b => b.Time).ToList();
